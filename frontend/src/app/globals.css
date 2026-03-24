@@ -7,54 +7,49 @@
    ============================================================ */
 :root {
   /* Backgrounds */
-  --bg-base:           #03050a;
-  --bg-mesh-1:         #0d1528;
-  --bg-mesh-2:         #0a0f1e;
+  --bg-base:           #000000;
+  
+  /* Accents - Holographic Hacker Theme */
+  --accent:            #FFC800; /* Gold */
+  --accent-bright:     #FFE500;
+  --accent-dim:        rgba(255, 200, 0, 0.15);
+  --accent-glow:       0 0 20px rgba(255, 200, 0, 0.4);
 
-  /* Glass */
-  --glass-bg:          rgba(255, 255, 255, 0.04);
-  --glass-bg-hover:    rgba(255, 255, 255, 0.07);
-  --glass-bg-active:   rgba(255, 255, 255, 0.10);
-  --glass-border:      rgba(255, 255, 255, 0.08);
-  --glass-border-hover:rgba(255, 255, 255, 0.16);
-  --glass-blur:        blur(20px) saturate(180%);
-  --glass-shadow:      0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --secondary:         #00FF66; /* Neon Green */
+  --secondary-bright:  #33FF85;
+  --secondary-dim:     rgba(0, 255, 102, 0.15);
+  --secondary-glow:    0 0 20px rgba(0, 255, 102, 0.4);
 
-  /* Accent */
-  --accent:            #7eb8f7;
-  --accent-bright:     #a8d4ff;
-  --accent-dim:        rgba(126, 184, 247, 0.15);
-  --accent-glow:       0 0 20px rgba(126, 184, 247, 0.3);
+  /* Glass - minimized for hacker look */
+  --glass-bg:          rgba(0, 40, 20, 0.1); /* Dark green tint */
+  --glass-bg-hover:    rgba(0, 40, 20, 0.15);
+  --glass-border:      rgba(0, 255, 102, 0.15);
+  --glass-border-hover:rgba(0, 255, 102, 0.3);
+  --glass-blur:        blur(10px);
+  --glass-shadow:      none;
 
   /* Text */
-  --text-primary:      rgba(255, 255, 255, 0.92);
-  --text-secondary:    rgba(255, 255, 255, 0.50);
-  --text-muted:        rgba(255, 255, 255, 0.25);
-  --text-accent:       var(--accent);
+  --text-primary:      #E0E0E0;
+  --text-secondary:    var(--secondary);
+  --text-muted:        rgba(0, 255, 102, 0.5);
 
   /* Status */
-  --success:           #4ade80;
-  --success-dim:       rgba(74, 222, 128, 0.12);
-  --warning:           #fbbf24;
-  --warning-dim:       rgba(251, 191, 36, 0.12);
-  --error:             #f87171;
-  --error-dim:         rgba(248, 113, 113, 0.12);
+  --success:           #00FF66;
+  --success-dim:       rgba(0, 255, 102, 0.12);
+  --warning:           #FFC800;
+  --warning-dim:       rgba(255, 200, 0, 0.12);
+  --error:             #FF3333;
+  --error-dim:         rgba(255, 51, 51, 0.12);
 
-  /* Spacing scale */
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-6: 24px;
-  --space-8: 32px;
-  --space-12: 48px;
-  --space-16: 64px;
+  /* Spacing */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px;
 
   /* Radius */
-  --radius-sm:  8px;
-  --radius-md:  12px;
-  --radius-lg:  16px;
-  --radius-xl:  24px;
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+  --radius-xl:  16px;
   --radius-full: 9999px;
 
   /* Transitions */
@@ -66,36 +61,27 @@
 /* ============================================================
    BASE STYLES
    ============================================================ */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 body {
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   color: var(--text-primary);
   background: var(--bg-base);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Syne', sans-serif;
-  font-weight: 700;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
 }
-
-code, pre, .mono {
-  font-family: 'JetBrains Mono', monospace;
-}
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
 
 /* ============================================================
-   ANIMATED BACKGROUND MESH
+   BACKGROUND MATRIX EFFECT
    ============================================================ */
 .bg-mesh {
   position: fixed;
@@ -104,60 +90,54 @@ code, pre, .mono {
   z-index: 0;
   overflow: hidden;
 }
-
-.bg-mesh::before {
-  content: '';
-  position: absolute;
-  inset: -50%;
-  width: 200%;
-  height: 200%;
-  background: transparent;
-  pointer-events: none;
-}
-
 .bg-mesh::after {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
-  opacity: 0.2;
+  background-image: 
+    linear-gradient(0deg, transparent 24%, rgba(0, 255, 102, 0.05) 25%, rgba(0, 255, 102, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 102, 0.05) 75%, rgba(0, 255, 102, 0.05) 76%, transparent 77%, transparent),
+    linear-gradient(90deg, transparent 24%, rgba(0, 255, 102, 0.05) 25%, rgba(0, 255, 102, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 102, 0.05) 75%, rgba(0, 255, 102, 0.05) 76%, transparent 77%, transparent);
+  background-size: 50px 50px;
   pointer-events: none;
 }
-
-@keyframes meshDrift {
-  0%   { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(20px, -20px) scale(1.05); }
+.bg-mesh::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, transparent 0%, #000 80%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 /* ============================================================
-   GLASS COMPONENTS
+   CARD PANELS
    ============================================================ */
 .glass-card {
   background: var(--glass-bg);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--glass-shadow);
+  border-radius: var(--radius-lg);
   transition: all var(--transition-base);
+  position: relative;
 }
-
 .glass-card:hover {
   background: var(--glass-bg-hover);
   border-color: var(--glass-border-hover);
+  box-shadow: 0 0 15px rgba(0, 255, 102, 0.05);
 }
-
 .glass-card-elevated {
-  box-shadow: var(--glass-shadow), 0 0 60px rgba(126, 184, 247, 0.05);
+  border-color: var(--glass-border-hover);
+  box-shadow: inset 0 0 20px rgba(0, 255, 102, 0.05);
 }
-
 .glass-card-no-hover:hover {
   background: var(--glass-bg);
   border-color: var(--glass-border);
+  box-shadow: none;
 }
 
 /* ============================================================
-   GLASS BUTTONS
+   BUTTONS
    ============================================================ */
 .glass-btn {
   display: inline-flex;
@@ -165,99 +145,88 @@ code, pre, .mono {
   justify-content: center;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-6);
-  border-radius: var(--radius-md);
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 600;
+  border-radius: var(--radius-sm);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
   font-size: 0.9375rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   cursor: pointer;
   border: none;
   outline: none;
-  transition: all var(--transition-base);
+  transition: all var(--transition-fast);
   position: relative;
   overflow: hidden;
   white-space: nowrap;
 }
-
-.glass-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
+.glass-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
 .glass-btn-primary {
   background: var(--accent);
-  color: #080b14;
+  color: #000;
+  box-shadow: 4px 4px 0px rgba(255, 200, 0, 0.3);
 }
-
 .glass-btn-primary:hover:not(:disabled) {
   background: var(--accent-bright);
-  box-shadow: var(--accent-glow);
+  box-shadow: 2px 2px 0px rgba(255, 200, 0, 0.5);
+  transform: translate(2px, 2px);
 }
 
 .glass-btn-secondary {
-  background: var(--glass-bg);
-  color: var(--accent);
-  border: 1px solid var(--accent-dim);
-  backdrop-filter: var(--glass-blur);
+  background: var(--secondary);
+  color: #000;
+  box-shadow: 4px 4px 0px rgba(0, 255, 102, 0.3);
 }
-
 .glass-btn-secondary:hover:not(:disabled) {
-  background: var(--accent-dim);
-  border-color: var(--accent);
+  background: var(--secondary-bright);
+  box-shadow: 2px 2px 0px rgba(0, 255, 102, 0.5);
+  transform: translate(2px, 2px);
 }
 
 .glass-btn-ghost {
   background: transparent;
-  color: var(--text-secondary);
+  color: var(--secondary);
+  border: 1px dashed var(--glass-border);
 }
-
 .glass-btn-ghost:hover:not(:disabled) {
   background: var(--glass-bg);
-  color: var(--text-primary);
+  border-color: var(--secondary);
+  color: var(--secondary-bright);
 }
 
 .glass-btn-danger {
-  background: var(--error-dim);
-  color: var(--error);
-  border: 1px solid rgba(248, 113, 113, 0.2);
+  background: var(--error);
+  color: #000;
+  box-shadow: 4px 4px 0px rgba(255, 51, 51, 0.3);
 }
-
 .glass-btn-danger:hover:not(:disabled) {
-  background: rgba(248, 113, 113, 0.2);
+  background: #ff4d4d;
+  box-shadow: 2px 2px 0px rgba(255, 51, 51, 0.5);
+  transform: translate(2px, 2px);
 }
 
 /* ============================================================
-   GLASS INPUT
+   TERMINAL INPUTS
    ============================================================ */
 .glass-input {
   width: 100%;
-  background: var(--glass-bg);
+  background: rgba(0,0,0,0.5);
   border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   padding: var(--space-3) var(--space-4);
-  color: var(--text-primary);
+  color: var(--secondary);
   font-family: 'JetBrains Mono', monospace;
   font-size: 1.25rem;
   font-weight: 500;
   outline: none;
   transition: all var(--transition-base);
 }
-
-.glass-input::placeholder {
-  color: var(--text-muted);
-}
-
+.glass-input::placeholder { color: var(--text-muted); }
 .glass-input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-dim);
+  border-color: var(--secondary);
+  box-shadow: inset 0 0 10px rgba(0, 255, 102, 0.1);
 }
-
-.glass-input-error {
-  border-color: var(--error);
-}
-
-.glass-input-error:focus {
-  box-shadow: 0 0 0 3px var(--error-dim);
-}
+.glass-input-error { border-color: var(--error); color: var(--error); }
 
 /* ============================================================
    GLASS NAVBAR
@@ -274,7 +243,9 @@ code, pre, .mono {
 
 .nav-link {
   color: var(--text-secondary);
-  font-weight: 500;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  text-transform: uppercase;
   font-size: 0.9375rem;
   padding: var(--space-2) var(--space-3);
   border-radius: var(--radius-sm);
@@ -284,24 +255,13 @@ code, pre, .mono {
 
 .nav-link:hover {
   color: var(--text-primary);
-  background: var(--glass-bg);
+  text-shadow: 0 0 10px rgba(0, 255, 102, 0.8);
 }
 
 .nav-link-active {
-  color: var(--accent);
+  color: var(--secondary);
+  text-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
   position: relative;
-}
-
-.nav-link-active::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60%;
-  height: 2px;
-  background: var(--accent);
-  border-radius: 1px;
 }
 
 /* ============================================================
