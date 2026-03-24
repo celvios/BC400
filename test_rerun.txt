@@ -1,0 +1,34 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/token/Token.t.sol:TokenTest
+[FAIL: AccessControlUnauthorizedAccount(0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496, 0x0000000000000000000000000000000000000000000000000000000000000000)] test_access_adminCanGrantRoles() (gas: 23462)
+Traces:
+  [23462] TokenTest::test_access_adminCanGrantRoles()
+    Γö£ΓöÇ [0] VM::prank(admin: [0xaA10a84CE7d9AE517a52c6d5cA153b369Af99ecF])
+    Γöé   ΓööΓöÇ ΓåÉ [Return]
+    Γö£ΓöÇ [5176] ERC1967Proxy::fallback() [staticcall]
+    Γöé   Γö£ΓöÇ [292] Token::PAUSER_ROLE() [delegatecall]
+    Γöé   Γöé   ΓööΓöÇ ΓåÉ [Return] 0x65d7a28e3265b37a6474929f336521b332c1681b933f6cb9f3376673440d862a
+    Γöé   ΓööΓöÇ ΓåÉ [Return] 0x65d7a28e3265b37a6474929f336521b332c1681b933f6cb9f3376673440d862a
+    Γö£ΓöÇ [5524] ERC1967Proxy::fallback(0x65d7a28e3265b37a6474929f336521b332c1681b933f6cb9f3376673440d862a, alice: [0x328809Bc894f92807417D2dAD6b7C998c1aFdac6])
+    Γöé   Γö£ΓöÇ [5127] Token::grantRole(0x65d7a28e3265b37a6474929f336521b332c1681b933f6cb9f3376673440d862a, alice: [0x328809Bc894f92807417D2dAD6b7C998c1aFdac6]) [delegatecall]
+    Γöé   Γöé   ΓööΓöÇ ΓåÉ [Revert] AccessControlUnauthorizedAccount(0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496, 0x0000000000000000000000000000000000000000000000000000000000000000)
+    Γöé   ΓööΓöÇ ΓåÉ [Revert] AccessControlUnauthorizedAccount(0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496, 0x0000000000000000000000000000000000000000000000000000000000000000)
+    ΓööΓöÇ ΓåÉ [Revert] AccessControlUnauthorizedAccount(0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496, 0x0000000000000000000000000000000000000000000000000000000000000000)
+
+Backtrace:
+  at Token.grantRole
+  at ERC1967Proxy.fallback
+  at TokenTest.test_access_adminCanGrantRoles
+
+Suite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 1.67ms (139.80┬╡s CPU time)
+
+Ran 1 test suite in 27.82ms (1.67ms CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)
+
+Failing tests:
+Encountered 1 failing test in test/token/Token.t.sol:TokenTest
+[FAIL: AccessControlUnauthorizedAccount(0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496, 0x0000000000000000000000000000000000000000000000000000000000000000)] test_access_adminCanGrantRoles() (gas: 23462)
+
+Encountered a total of 1 failing tests, 0 tests succeeded
+
+Tip: Run `forge test --rerun` to retry only the 1 failed test

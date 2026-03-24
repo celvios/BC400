@@ -1,0 +1,40 @@
+# Compiler output
+/out/
+/cache/
+
+# Environment files (NEVER commit secrets)
+.env
+.env.local
+.env.mainnet
+.env.testnet
+
+# Dependencies
+/node_modules/
+
+# Build artifacts
+/artifacts/
+/typechain-types/
+
+# Coverage
+/coverage/
+lcov.info
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Frontend build
+/frontend/.next/
+/frontend/out/
+/frontend/node_modules/
+
+# Deployment records with secrets
+# Note: deployment JSONs (addresses, tx hashes) ARE committed
+# but .env files with private keys are NOT
+
+# Foundry
+/broadcast/
