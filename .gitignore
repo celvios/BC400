@@ -38,3 +38,9 @@ Thumbs.db
 
 # Foundry
 /broadcast/
+
+# Prompts and Logs
+/*.txt
+/PERSONALITY*.md
+/CLAUDE_CODE_PROMPT*.md
+/FRONTEND_PROMPT*.md
