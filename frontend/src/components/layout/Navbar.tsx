@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sprout } from 'lucide-react';
 import { useState } from 'react';
 
 const NAV_LINKS = [
@@ -30,19 +30,18 @@ export function Navbar() {
         {/* Logo */}
         <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', textDecoration: 'none' }}>
           <div style={{
-            width: 36,
-            height: 36,
+            width: 38,
+            height: 38,
             borderRadius: 'var(--radius-md)',
-            background: 'linear-gradient(135deg, var(--accent), var(--accent-bright))',
+            background: 'var(--glass-bg)',
+            border: '1px solid var(--accent)',
+            boxShadow: 'var(--accent-glow)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontFamily: "'Syne', sans-serif",
-            fontWeight: 800,
-            fontSize: '0.875rem',
-            color: '#080b14',
+            color: 'var(--accent)',
           }}>
-            BC
+            <Sprout size={22} strokeWidth={2.5} />
           </div>
           <span style={{
             fontFamily: "'Syne', sans-serif",
