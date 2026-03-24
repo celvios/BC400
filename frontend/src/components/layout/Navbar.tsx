@@ -28,20 +28,14 @@ export function Navbar() {
         gap: 'var(--space-8)',
       }}>
         {/* Logo */}
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', textDecoration: 'none' }}>
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', textDecoration: 'none' }}>
           <div style={{
-            width: 38,
-            height: 38,
-            borderRadius: 'var(--radius-md)',
-            background: 'var(--glass-bg)',
-            border: '1px solid var(--accent)',
-            boxShadow: 'var(--accent-glow)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             color: 'var(--accent)',
           }}>
-            <Sprout size={22} strokeWidth={2.5} />
+            <Sprout size={28} strokeWidth={2.5} />
           </div>
           <span style={{
             fontFamily: "'Syne', sans-serif",
