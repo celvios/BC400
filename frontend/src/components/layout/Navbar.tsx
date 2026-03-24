@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { Menu, X, Sprout } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 
 const NAV_LINKS = [
@@ -28,14 +29,17 @@ export function Navbar() {
         gap: 'var(--space-8)',
       }}>
         {/* Logo */}
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', textDecoration: 'none' }}>
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', textDecoration: 'none' }}>
           <div style={{
+            width: 44,
+            height: 44,
+            borderRadius: 'var(--radius-sm)',
+            border: '2px solid var(--accent)',
+            boxShadow: 'var(--accent-glow)',
+            overflow: 'hidden',
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'var(--accent)',
           }}>
-            <Sprout size={28} strokeWidth={2.5} />
+            <Image src="/agent-logo.png" alt="Matrix Agent" width={44} height={44} style={{ objectFit: 'cover' }} />
           </div>
           <span style={{
             fontFamily: "'Syne', sans-serif",
