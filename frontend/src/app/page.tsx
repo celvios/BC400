@@ -6,7 +6,7 @@ import { formatTokenAmount, parseTokenInput } from '@/lib/format';
 import { parseContractError } from '@/lib/errors';
 import { TOKEN_ABI } from '@/config/abis/token.abi';
 import { MIGRATION_ABI } from '@/config/abis/migration.abi';
-import { CONTRACTS, OLD_TOKEN_ADDRESS, TOKEN_SYMBOL } from '@/config/contracts';
+import { CONTRACTS, OLD_TOKEN_ADDRESS, TOKEN_SYMBOL, SUPPORTED_CHAIN_IDS, CHAIN_INFO } from '@/config/contracts';
 
 type MigrationState = 
   | 'idle' | 'wrong_network' | 'loading_balances' | 'no_old_tokens'
@@ -19,10 +19,13 @@ export default function MigratePage() {
   const [state, setState] = useState<MigrationState>('idle');
   const [error, setError] = useState<string | undefined>();
 
-  const bscContracts = CONTRACTS[56];
+  // Dynamically detect BSC chain (mainnet 56 or testnet 97)
+  const bscChainId = SUPPORTED_CHAIN_IDS.find(id => id === 56 || id === 97) ?? 56;
+  const bscContracts = CONTRACTS[bscChainId];
   const migrationAddress = bscContracts?.migration;
   const newTokenAddress = bscContracts?.token;
-  const isBSC = chain?.id === 56;
+  const isBSC = chain?.id === bscChainId;
+  const bscChainName = CHAIN_INFO[bscChainId]?.name ?? 'BNB Chain';
 
   // Read old token balance
   const { data: oldBalance } = useReadContract({
@@ -201,10 +204,10 @@ export default function MigratePage() {
         {state === 'wrong_network' && (
           <div style={{ textAlign: 'center', padding: 'var(--space-8) 0' }}>
             <p style={{ color: 'var(--warning)', marginBottom: 'var(--space-4)' }}>
-              Please switch to BNB Chain
+              Please switch to {bscChainName}
             </p>
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
-              Migration is only available on BSC
+              Migration is only available on {bscChainName}
             </p>
           </div>
         )}
@@ -338,13 +341,13 @@ export default function MigratePage() {
             </p>
             {migrateTxHash && (
               <a
-                href={`https://bscscan.com/tx/${migrateTxHash}`}
+                href={`${bscChainId === 97 ? 'https://testnet.bscscan.com' : 'https://bscscan.com'}/tx/${migrateTxHash}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="glass-btn glass-btn-secondary"
                 style={{ display: 'inline-flex' }}
               >
-                View on BscScan ↗
+                View on {bscChainId === 97 ? 'Testnet ' : ''}BscScan ↗
               </a>
             )}
           </div>
