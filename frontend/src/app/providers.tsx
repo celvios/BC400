@@ -19,13 +19,26 @@ const sonic = {
   },
 } as const;
 
+const sonicBlaze = {
+  id: 57054,
+  name: 'Sonic Blaze Testnet',
+  nativeCurrency: { name: 'Sonic', symbol: 'S', decimals: 18 },
+  rpcUrls: {
+    default: { http: ['https://rpc.blaze.soniclabs.com'] },
+  },
+  blockExplorers: {
+    default: { name: 'SonicScan', url: 'https://testnet.sonicscan.org' },
+  },
+  testnet: true,
+} as const;
+
 const useTestnets = process.env.NEXT_PUBLIC_USE_TESTNETS === 'true';
 
 const config = getDefaultConfig({
   appName: 'BC400 Token Portal',
   projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || 'demo',
   chains: useTestnets
-    ? [bscTestnet, sepolia, baseSepolia, polygonAmoy]
+    ? [bscTestnet, sepolia, baseSepolia, polygonAmoy, sonicBlaze]
     : [bsc, mainnet, base, sonic, polygon],
   ssr: true,
 });

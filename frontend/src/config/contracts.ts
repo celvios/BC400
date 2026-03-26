@@ -38,6 +38,9 @@ export const CONTRACTS: Record<number, ContractAddresses> = {
   80002: {
     token: (process.env.NEXT_PUBLIC_POLYGON_TOKEN || '0x0000000000000000000000000000000000000000') as `0x${string}`,
   },
+  57054: {
+    token: (process.env.NEXT_PUBLIC_SONIC_TOKEN || '0x0000000000000000000000000000000000000000') as `0x${string}`,
+  },
 };
 
 // Old token address on BSC (for migration)
@@ -61,10 +64,11 @@ export const CHAIN_INFO: Record<number, { name: string; symbol: string; color: s
   11155111: { name: 'Sepolia',       symbol: 'ETH',  color: '#627EEA', dotClass: 'chain-dot-ethereum' },
   84532:    { name: 'Base Sepolia',  symbol: 'ETH',  color: '#0052FF', dotClass: 'chain-dot-base' },
   80002:    { name: 'Amoy',          symbol: 'POL',  color: '#8247E5', dotClass: 'chain-dot-polygon' },
+  57054:    { name: 'Sonic Blaze',   symbol: 'S',    color: '#00D4FF', dotClass: 'chain-dot-sonic' },
 };
 
 const useTestnets = process.env.NEXT_PUBLIC_USE_TESTNETS === 'true';
 export const SUPPORTED_CHAIN_IDS = useTestnets
-  ? [97, 11155111, 84532, 80002] as const
+  ? [97, 11155111, 84532, 80002, 57054] as const
   : [56, 1, 8453, 146, 137] as const;
 
