@@ -7,25 +7,35 @@ export interface ContractAddresses {
 }
 
 export const CONTRACTS: Record<number, ContractAddresses> = {
-  // BSC
+  // ── Mainnet ──
   56: {
     token: (process.env.NEXT_PUBLIC_BSC_TOKEN || '0x0000000000000000000000000000000000000000') as `0x${string}`,
     migration: (process.env.NEXT_PUBLIC_BSC_MIGRATION || '0x0000000000000000000000000000000000000000') as `0x${string}`,
   },
-  // Ethereum
   1: {
     token: (process.env.NEXT_PUBLIC_ETH_TOKEN || '0x0000000000000000000000000000000000000000') as `0x${string}`,
   },
-  // Base
   8453: {
     token: (process.env.NEXT_PUBLIC_BASE_TOKEN || '0x0000000000000000000000000000000000000000') as `0x${string}`,
   },
-  // Sonic
   146: {
     token: (process.env.NEXT_PUBLIC_SONIC_TOKEN || '0x0000000000000000000000000000000000000000') as `0x${string}`,
   },
-  // Polygon
   137: {
+    token: (process.env.NEXT_PUBLIC_POLYGON_TOKEN || '0x0000000000000000000000000000000000000000') as `0x${string}`,
+  },
+  // ── Testnet ──
+  97: {
+    token: (process.env.NEXT_PUBLIC_BSC_TOKEN || '0x0000000000000000000000000000000000000000') as `0x${string}`,
+    migration: (process.env.NEXT_PUBLIC_BSC_MIGRATION || '0x0000000000000000000000000000000000000000') as `0x${string}`,
+  },
+  11155111: {
+    token: (process.env.NEXT_PUBLIC_ETH_TOKEN || '0x0000000000000000000000000000000000000000') as `0x${string}`,
+  },
+  84532: {
+    token: (process.env.NEXT_PUBLIC_BASE_TOKEN || '0x0000000000000000000000000000000000000000') as `0x${string}`,
+  },
+  80002: {
     token: (process.env.NEXT_PUBLIC_POLYGON_TOKEN || '0x0000000000000000000000000000000000000000') as `0x${string}`,
   },
 };
@@ -40,11 +50,21 @@ export const TOKEN_DECIMALS = 18;
 
 // Chain display info
 export const CHAIN_INFO: Record<number, { name: string; symbol: string; color: string; dotClass: string }> = {
+  // Mainnet
   56:   { name: 'BNB Chain',  symbol: 'BNB', color: '#F0B90B', dotClass: 'chain-dot-bsc' },
   1:    { name: 'Ethereum',   symbol: 'ETH', color: '#627EEA', dotClass: 'chain-dot-ethereum' },
   8453: { name: 'Base',       symbol: 'ETH', color: '#0052FF', dotClass: 'chain-dot-base' },
   146:  { name: 'Sonic',      symbol: 'S',   color: '#00D4FF', dotClass: 'chain-dot-sonic' },
   137:  { name: 'Polygon',    symbol: 'POL', color: '#8247E5', dotClass: 'chain-dot-polygon' },
+  // Testnet
+  97:       { name: 'BSC Testnet',   symbol: 'tBNB', color: '#F0B90B', dotClass: 'chain-dot-bsc' },
+  11155111: { name: 'Sepolia',       symbol: 'ETH',  color: '#627EEA', dotClass: 'chain-dot-ethereum' },
+  84532:    { name: 'Base Sepolia',  symbol: 'ETH',  color: '#0052FF', dotClass: 'chain-dot-base' },
+  80002:    { name: 'Amoy',          symbol: 'POL',  color: '#8247E5', dotClass: 'chain-dot-polygon' },
 };
 
-export const SUPPORTED_CHAIN_IDS = [56, 1, 8453, 146, 137] as const;
+const useTestnets = process.env.NEXT_PUBLIC_USE_TESTNETS === 'true';
+export const SUPPORTED_CHAIN_IDS = useTestnets
+  ? [97, 11155111, 84532, 80002] as const
+  : [56, 1, 8453, 146, 137] as const;
+
