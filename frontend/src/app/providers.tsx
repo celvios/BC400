@@ -2,7 +2,7 @@
 
 import { RainbowKitProvider, getDefaultConfig, darkTheme } from '@rainbow-me/rainbowkit';
 import { WagmiProvider } from 'wagmi';
-import { bsc, mainnet, base, polygon } from 'wagmi/chains';
+import { bsc, mainnet, base, polygon, bscTestnet, sepolia, baseSepolia, polygonAmoy } from 'wagmi/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import '@rainbow-me/rainbowkit/styles.css';
 
@@ -19,10 +19,14 @@ const sonic = {
   },
 } as const;
 
+const useTestnets = process.env.NEXT_PUBLIC_USE_TESTNETS === 'true';
+
 const config = getDefaultConfig({
   appName: 'BC400 Token Portal',
   projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || 'demo',
-  chains: [bsc, mainnet, base, sonic, polygon],
+  chains: useTestnets
+    ? [bscTestnet, sepolia, baseSepolia, polygonAmoy]
+    : [bsc, mainnet, base, sonic, polygon],
   ssr: true,
 });
 
@@ -34,8 +38,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider
           theme={darkTheme({
-            accentColor: '#7eb8f7',
-            accentColorForeground: '#080b14',
+            accentColor: '#FFC800',
+            accentColorForeground: '#000000',
             borderRadius: 'medium',
             overlayBlur: 'small',
           })}
@@ -46,3 +50,4 @@ export function Providers({ children }: { children: React.ReactNode }) {
     </WagmiProvider>
   );
 }
+
