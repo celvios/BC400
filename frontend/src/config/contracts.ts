@@ -52,19 +52,19 @@ export const TOKEN_SYMBOL = 'BC400';
 export const TOKEN_DECIMALS = 18;
 
 // Chain display info
-export const CHAIN_INFO: Record<number, { name: string; symbol: string; color: string; dotClass: string }> = {
+export const CHAIN_INFO: Record<number, { name: string; symbol: string; color: string; dotClass: string; explorerUrl: string }> = {
   // Mainnet
-  56:   { name: 'BNB Chain',  symbol: 'BNB', color: '#F0B90B', dotClass: 'chain-dot-bsc' },
-  1:    { name: 'Ethereum',   symbol: 'ETH', color: '#627EEA', dotClass: 'chain-dot-ethereum' },
-  8453: { name: 'Base',       symbol: 'ETH', color: '#0052FF', dotClass: 'chain-dot-base' },
-  146:  { name: 'Sonic',      symbol: 'S',   color: '#00D4FF', dotClass: 'chain-dot-sonic' },
-  137:  { name: 'Polygon',    symbol: 'POL', color: '#8247E5', dotClass: 'chain-dot-polygon' },
+  56:   { name: 'BNB Chain',  symbol: 'BNB', color: '#F0B90B', dotClass: 'chain-dot-bsc',      explorerUrl: 'https://bscscan.com' },
+  1:    { name: 'Ethereum',   symbol: 'ETH', color: '#627EEA', dotClass: 'chain-dot-ethereum', explorerUrl: 'https://etherscan.io' },
+  8453: { name: 'Base',       symbol: 'ETH', color: '#0052FF', dotClass: 'chain-dot-base',     explorerUrl: 'https://basescan.org' },
+  146:  { name: 'Sonic',      symbol: 'S',   color: '#00D4FF', dotClass: 'chain-dot-sonic',    explorerUrl: 'https://sonicscan.org' },
+  137:  { name: 'Polygon',    symbol: 'POL', color: '#8247E5', dotClass: 'chain-dot-polygon',  explorerUrl: 'https://polygonscan.com' },
   // Testnet
-  97:       { name: 'BSC Testnet',   symbol: 'tBNB', color: '#F0B90B', dotClass: 'chain-dot-bsc' },
-  11155111: { name: 'Sepolia',       symbol: 'ETH',  color: '#627EEA', dotClass: 'chain-dot-ethereum' },
-  84532:    { name: 'Base Sepolia',  symbol: 'ETH',  color: '#0052FF', dotClass: 'chain-dot-base' },
-  80002:    { name: 'Amoy',          symbol: 'POL',  color: '#8247E5', dotClass: 'chain-dot-polygon' },
-  57054:    { name: 'Sonic Blaze',   symbol: 'S',    color: '#00D4FF', dotClass: 'chain-dot-sonic' },
+  97:       { name: 'BSC Testnet',   symbol: 'tBNB', color: '#F0B90B', dotClass: 'chain-dot-bsc',      explorerUrl: 'https://testnet.bscscan.com' },
+  11155111: { name: 'Sepolia',       symbol: 'ETH',  color: '#627EEA', dotClass: 'chain-dot-ethereum', explorerUrl: 'https://sepolia.etherscan.io' },
+  84532:    { name: 'Base Sepolia',  symbol: 'ETH',  color: '#0052FF', dotClass: 'chain-dot-base',     explorerUrl: 'https://sepolia.basescan.org' },
+  80002:    { name: 'Amoy',          symbol: 'POL',  color: '#8247E5', dotClass: 'chain-dot-polygon',  explorerUrl: 'https://amoy.polygonscan.com' },
+  57054:    { name: 'Sonic Blaze',   symbol: 'S',    color: '#00D4FF', dotClass: 'chain-dot-sonic',    explorerUrl: 'https://testnet.sonicscan.org' },
 };
 
 const useTestnets = process.env.NEXT_PUBLIC_USE_TESTNETS === 'true';

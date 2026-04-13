@@ -162,16 +162,28 @@ export default function DashboardPage() {
                   <span className={`chain-dot ${info?.dotClass || ''}`} />
                   <span style={{ fontSize: '0.875rem' }}>{info?.name}</span>
                 </div>
-                <code className="mono" style={{
-                  fontSize: '0.75rem',
-                  color: 'var(--text-secondary)',
-                  cursor: 'pointer',
-                }}
-                  title={addr}
-                  onClick={() => addr && navigator.clipboard.writeText(addr)}
-                >
-                  {addr ? `${addr.slice(0, 6)}...${addr.slice(-4)}` : 'Not deployed'}
-                </code>
+                {addr ? (
+                  <a
+                    href={`${info?.explorerUrl}/token/${addr}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title={addr}
+                    className="mono"
+                    style={{
+                      fontSize: '0.75rem',
+                      color: 'var(--accent)',
+                      textDecoration: 'none',
+                    }}
+                    onMouseEnter={e => (e.currentTarget.style.textDecoration = 'underline')}
+                    onMouseLeave={e => (e.currentTarget.style.textDecoration = 'none')}
+                  >
+                    {`${addr.slice(0, 6)}...${addr.slice(-4)}`}
+                  </a>
+                ) : (
+                  <code className="mono" style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                    Not deployed
+                  </code>
+                )}
               </div>
             );
           })}
