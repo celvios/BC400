@@ -8,8 +8,9 @@ import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 
 const NAV_LINKS = [
-  { href: '/', label: 'Migrate' },
-  { href: '/bridge', label: 'Bridge' },
+  { href: '/buy',       label: 'Buy'       },
+  { href: '/',          label: 'Migrate'   },
+  { href: '/bridge',    label: 'Bridge'    },
   { href: '/dashboard', label: 'Dashboard' },
 ];
 
