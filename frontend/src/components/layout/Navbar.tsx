@@ -12,6 +12,7 @@ const NAV_LINKS = [
   { href: '/',          label: 'Migrate'   },
   { href: '/bridge',    label: 'Bridge'    },
   { href: '/dashboard', label: 'Dashboard' },
+  { href: '/admin',     label: 'Admin'     },
 ];
 
 export function Navbar() {
