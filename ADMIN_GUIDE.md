@@ -160,8 +160,34 @@ _blacklisted:  true
 
 ---
 
+#### How Tax Works — Important
+
+The tax wallet **does not receive BC400**. It receives the native token of each chain:
+
+| Chain | Tax wallet receives |
+|-------|-------------------|
+| BSC | BNB |
+| Ethereum | ETH |
+| Base | ETH |
+| Polygon | POL |
+| Sonic | S |
+
+**Flow for DEX buys/sells:**
+1. User buys or sells BC400 on a DEX
+2. The tax portion (e.g. 2% of the trade) is held inside the token contract as BC400
+3. Once enough has accumulated (controlled by `swapThreshold`), the contract automatically swaps those BC400 tokens → native token via the DEX router
+4. The native token (BNB/ETH/POL/S) is sent directly to the `taxWallet`
+
+**Flow for wallet-to-wallet transfers:**
+1. User sends BC400 to another wallet
+2. The tax portion is deducted and sent to `taxWallet` as **BC400** (no swap — only DEX trades auto-convert)
+
+> ⚠️ Auto-swap to native token only works when `dexRouter` is set AND a liquidity pool exists. Until launch, tax accumulates as BC400 in the contract and converts once the pool is live.
+
+---
+
 #### `setTaxBps(uint256 bps)`
-**What it does:** Sets the general transfer tax rate applied to all non-DEX transfers. This is in addition to buy/sell tax.
+**What it does:** Sets the tax rate on wallet-to-wallet transfers (not DEX buys/sells — those use `buyTaxBps`/`sellTaxBps`). Tax is sent directly to `taxWallet` as BC400.
 
 **Required role:** `TAX_MANAGER_ROLE`
 
@@ -175,7 +201,7 @@ _blacklisted:  true
 ---
 
 #### `setBuyTaxBps(uint256 bps)`
-**What it does:** Sets the tax applied when someone buys BC400 from a DEX pair.
+**What it does:** Sets the tax when someone **buys** BC400 on a DEX. The tax is held in the contract and auto-converted to native token (BNB/ETH/POL/S) then sent to the tax wallet.
 
 **Required role:** `TAX_MANAGER_ROLE`
 
@@ -189,7 +215,7 @@ _blacklisted:  true
 ---
 
 #### `setSellTaxBps(uint256 bps)`
-**What it does:** Sets the tax applied when someone sells BC400 on a DEX pair.
+**What it does:** Sets the tax when someone **sells** BC400 on a DEX. The tax is held in the contract and auto-converted to native token (BNB/ETH/POL/S) then sent to the tax wallet.
 
 **Required role:** `TAX_MANAGER_ROLE`
 
@@ -203,7 +229,7 @@ _blacklisted:  true
 ---
 
 #### `setTaxEnabled(bool enabled)`
-**What it does:** Turns all tax collection on or off globally. When disabled, no tax is deducted from any transfer — regardless of buy/sell/transfer BPS settings.
+**What it does:** Turns all tax collection on or off globally. When disabled, no tax is deducted from any transfer — no BNB/ETH/native goes to the tax wallet.
 
 **Required role:** `TAX_MANAGER_ROLE`
 
@@ -215,7 +241,7 @@ _blacklisted:  true
 ---
 
 #### `setTaxWallet(address wallet)`
-**What it does:** Changes where collected tax is sent. All future tax goes to the new address immediately.
+**What it does:** Changes the wallet that receives tax. On DEX trades it receives native token (BNB/ETH/POL/S). On wallet transfers it receives BC400. Update this before launch if needed.
 
 **Required role:** `TAX_MANAGER_ROLE`
 
@@ -227,7 +253,7 @@ _blacklisted:  true
 ---
 
 #### `setTaxExempt(address account, bool exempt)`
-**What it does:** Marks a wallet as tax-exempt — no tax is deducted from their transfers, buys, or sells.
+**What it does:** Marks a wallet as tax-exempt — no tax deducted from their transfers, buys, or sells in any direction.
 
 **Required role:** `ADMIN_ROLE`
 
@@ -240,7 +266,7 @@ _blacklisted:  true
 ---
 
 #### `totalTaxCollected()` *(Read only)*
-**What it does:** Shows total BC400 tax collected across all transfers since deployment.
+**What it does:** Shows the total BC400 that has passed through the tax system since deployment (includes amounts already converted to BNB/ETH).
 
 **How to check:** Read as Proxy → `totalTaxCollected` → divide by 10^18 for human-readable amount
 
